@@ -1,5 +1,5 @@
 
-word = raw_input("Enter a word: ")
+word = raw_input("Enter a word: ").lower()
 print("You entered " + word + ".")
 
 # Determine if the word is a palindrome
