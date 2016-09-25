@@ -16,7 +16,15 @@ and they lived at the bottom of a well.</p>
 
 soup = BeautifulSoup(html_doc, "html.parser")
 # print(soup.prettify())
-print(len(soup.find_all("a")))
+# print(len(soup.find_all("a")))
+
+# Print all the links
+for link in soup.find_all("a"):
+  print(link.get("href"))
+
+for _class in soup.find_all("p"):
+  print(_class.get("class"))
+
 '''
 a = [1, 2, 3]
 b = [5, 10, 15]
