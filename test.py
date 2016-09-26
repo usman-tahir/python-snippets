@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+import re
 
 html_doc = """
 <html><head><title>The Dormouse's story</title></head>
@@ -37,3 +38,7 @@ print(str(c))
 d = [x * y for x in a for y in b]
 print(str(d))
 '''
+
+sample_filenames = ["www/root/filesystem", "www/root/software/licenses", "www/root/engineers", "www/html/main"]
+for filename in sample_filenames:
+	print(filename[filename.index("/"):filename.index("/") + 1])
