@@ -22,5 +22,5 @@ def download(url, user_agent = "wswp", num_retries = 2):
 		return html
 
 # print(download("http://www.github.com/usman-tahir"))
-print(download("http://httpstat.us/500"))
-print(download("http://httpstat.us/404"))
+# print(download("http://httpstat.us/500"))
+# print(download("http://httpstat.us/404"))
