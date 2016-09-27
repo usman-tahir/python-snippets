@@ -3,8 +3,16 @@ import sys
 
 
 def cows_and_bulls_printout(actual, guess):
-  string_actual = str(actual)
-  string_guess = str(guess)
+  if actual < 1000:
+    string_actual = ("0" + str(actual))
+  else:
+    string_actual = str(actual)
+
+  if guess < 1000:
+    string_guess = ("0" + str(guess))
+  else:
+    string_guess = str(guess)
+    
   cows_and_bulls = [0, 0]
 
   for x in range(len(string_actual)):
