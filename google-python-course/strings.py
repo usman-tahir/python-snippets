@@ -32,3 +32,14 @@ print(string_seven.split(",")) # ['Too', ' many commas in', ' this', ' sentence'
 word_list = ["Hello", "my", "name", "is", "John"]
 string_eight = (" ".join(word_list)) # 'Hello my name is John'
 print(string_eight)
+
+string_nine = "Hello"
+print(string_nine[1:4]) # 'ell'
+print(string_nine[1:]) # 'ello'
+print(string_nine[:]) # 'Hello'
+print(string_nine[1:100]) # 'ello'
+
+print(string_nine[-1]) # 'o'
+print(string_nine[-4]) # 'e'
+print(string_nine[:3]) # 'He'
+print(string_nine[-3:]) # 'llo'
