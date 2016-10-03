@@ -40,6 +40,12 @@ def donuts(count):
 # is less than 2, return instead the empty string.
 def both_ends(s):
   # +++your code here+++
+  if len(s) < 2:
+    return('')
+  else:
+    first_two = s[0:2]
+    last_two = s[-2:]
+    return(first_two + last_two)
   return
 
 
@@ -54,7 +60,12 @@ def both_ends(s):
 # where all instances of stra have been replaced by strb.
 def fix_start(s):
   # +++your code here+++
-  return
+  if len(s) == 0:
+    return(s)
+  else:
+    first_char = s[0]
+    replaced = s.replace(first_char, "*")
+    return(first_char + replaced[1:])
 
 
 # D. MixUp
@@ -66,7 +77,10 @@ def fix_start(s):
 # Assume a and b are length 2 or more.
 def mix_up(a, b):
   # +++your code here+++
-  return
+  a_first_two = a[0:2]
+  b_first_two = b[0:2]
+  result = (b_first_two + a[2:] + " " + a_first_two + b[2:])
+  return(result)
 
 
 # Provided simple test() function used in main() to print
