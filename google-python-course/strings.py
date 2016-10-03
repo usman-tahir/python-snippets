@@ -43,3 +43,10 @@ print(string_nine[-1]) # 'o'
 print(string_nine[-4]) # 'e'
 print(string_nine[:3]) # 'He'
 print(string_nine[-3:]) # 'llo'
+
+text = ("%d little pigs come out, or I'll %s and I'll %s and %s" %
+	(3, "huff", "puff", "blow your house down"))
+print(text)
+
+u_string = u'A unicode \u018e string \xf1'
+print(u_string)
