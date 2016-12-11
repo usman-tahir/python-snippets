@@ -41,8 +41,6 @@ def current_guesses_status(current_guesses):
 
 def main():
   word = choose_word().rstrip("\n")
-  print(word)
-  correct = False
 
   incorrect = []
   current_guesses = [" _ "] * len(word)
@@ -51,8 +49,7 @@ def main():
   while " _ " in current_guesses:
     guesses += 1
     guess = input("\nGuess a letter: ")
-    correct = evaluate_letter_guess(guess, word)
-    if correct:
+    if evaluate_letter_guess(guess, word):
       fill_in_letter(current_guesses, word, guess)
       print(current_guesses_status(current_guesses))
     else:
