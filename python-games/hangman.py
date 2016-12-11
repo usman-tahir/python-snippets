@@ -8,16 +8,16 @@ def choose_word():
   index = random.randint(0, len(words))
   return words[index]
 
-def evaluate_letter_guess(letter, word):
-  if letter == "" or len(letter) > 1:
+def evaluate_letter_guess(letter, word, valid_letters):
+  if letter not in valid_letters:
     print("Please guess only one, non-blank letter.")
     return False
   else:
     return letter.lower() in word.lower()
 
-def fill_in_letter(current_guesses, word, guess):
+def fill_in_letter(current_guesses, word, guess, valid_letters):
   letters = list(word)
-  if evaluate_letter_guess(guess, word):
+  if evaluate_letter_guess(guess, word, valid_letters):
     if guess in current_guesses:
       print("You already guessed the letter '%s'." % (guess))
     else:
@@ -41,7 +41,7 @@ def current_guesses_status(current_guesses):
 
 def main():
   word = choose_word().rstrip("\n")
-
+  valid_letters = [chr(c) for c in range(ord("a"), ord("z") + 1)]
   incorrect = []
   current_guesses = [" _ "] * len(word)
   guesses = 0
@@ -49,16 +49,18 @@ def main():
   while " _ " in current_guesses:
     guesses += 1
     guess = input("\nGuess a letter: ")
-    if evaluate_letter_guess(guess, word):
-      fill_in_letter(current_guesses, word, guess)
+    if evaluate_letter_guess(guess, word, valid_letters):
+      fill_in_letter(current_guesses, word, guess, valid_letters)
       print(current_guesses_status(current_guesses))
     else:
-      if not guess in incorrect and len(guess) == 1:
+      if not guess in incorrect and guess in valid_letters:
         incorrect.append(guess.lower())
         print("\nCurrent incorrect guesses: " + str(incorrect))
       else:
-        if guess != "" and len(guess) == 1:
+        if guess in valid_letters:
           print("You have already guessed '%s' incorrectly." % (guess))
+        else:
+          print("You guessed an incorrect character.")
   print ("\nYou guessed the word in %d tries." % (guesses))
       
 
