@@ -17,7 +17,16 @@ def generate_mastermind_puzzle(difficulty = 4):
 # Determine the correctness of the user's guess based on the actual pattern
 def get_positional_status(actual_puzzle, user_guess):
     result = [""] * len(actual_puzzle)
-    
+
+    for i in range(len(actual_puzzle)):
+        if actual_puzzle[i] == user_guess[i]:
+            result[i] = "C"
+        else:
+            if actual_puzzle[i] != user_guess[i] and user_guess[i] in actual_puzzle:
+                result[i] = "P"
+            else:
+                result[i] = "I"
+
     return result
 
 def main():
