@@ -53,7 +53,7 @@ def main():
       % (matches, len(lottery_numbers)))
   
   # Matching based on the user's selected numbers
-  matches = compare_numbers(lottery_numbers, user_numbers, False):
+  matches = compare_numbers(lottery_numbers, user_numbers, False)
   if matches == len(lottery_numbers):
     print("You won the lottery!")
   else:
