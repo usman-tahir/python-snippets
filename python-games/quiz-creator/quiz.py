@@ -7,10 +7,10 @@ class Quiz:
     self.parsed_answers = Quiz.parse_data(self, self.answers_file)
   
   def parse_data(self, file_path):
-    data = open(file_path)
-    parsed_data = data.readlines()
-    for p in parsed_data:
-      p = p.rstrip("\n")
+    data = open(file_path).readlines()
+    parsed_data = []
+    for d in data:
+      parsed_data.append(d.rstrip("\n"))
     
     return parsed_data
   
