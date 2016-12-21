@@ -18,7 +18,7 @@ class Quiz:
     return self.parsed_questions
   
   def get_answers(self):
-    return self.parsed_questions
+    return self.parsed_answers
   
   def set_questions(self, questions_file):
     self.parsed_questions = Quiz.parse_data(questions_file)
