@@ -2,12 +2,13 @@
 class Product:
     global_id = 0
 
-    def __init__(self, name, description, value):
+    def __init__(self, name, description, value, quantity):
         self.id = Product.global_id + 1
         Product.global_id += 1
         self.name = name
         self.description = description
         self.value = value
+        self.quantity = quantity
 
     def get_id(self):
         return self.id
@@ -21,6 +22,9 @@ class Product:
     def get_value(self):
         return self.value
 
+    def get_quantity(self):
+        return self.quantity
+
     def set_name(self, name):
         self.name = name
 
@@ -30,6 +34,10 @@ class Product:
     def set_value(self, value):
         self.value = value
 
+    def set_quantity(self, quantity):
+        self.quantity = quantity
+
     def __str__(self):
         return "\nID: " + str(self.id) + "\nName: " + self.name + "\nDescription: " \
-            + self.description + "\nValue: " + str(self.value) + "\n"
+            + self.description + "\nValue: " + str(self.value) + "\nQuantity: " \
+            + str(self.quantity) + "\n"
