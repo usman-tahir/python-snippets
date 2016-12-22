@@ -12,7 +12,14 @@ class Inventory:
         inventory = []
         for d in data:
             current = d.rstrip("\n").split(",")
-            p = product.Product(current[0], current[1], int(current[2]))
+
+            # Constructor argments
+            name = current[0]
+            description = current[1]
+            value = int(current[2])
+            quantity = int(current[3])
+
+            p = product.Product(name, description, value, quantity)
             inventory.append(p)
         return inventory
 
@@ -32,7 +39,7 @@ class Inventory:
     def get_inventory_value(self):
         total = 0
         for each in self.inventory:
-            total += each.get_value()
+            total += (each.get_value() * each.get_quantity())
         return total
 
     def __str__(self):

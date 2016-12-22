@@ -1,2 +1,3 @@
-hammer,a tool to fasten items,10
-saw,a sharp tool for cutting,15
+hammer,a tool to fasten items,10,1
+saw,a sharp tool for cutting,15,1
+nail,a metal fastener used with a hammer,3,100
