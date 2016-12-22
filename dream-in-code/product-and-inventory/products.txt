@@ -1,0 +1,2 @@
+hammer,a tool to fasten items,10
+saw,a sharp tool for cutting,15

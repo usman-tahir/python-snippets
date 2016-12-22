@@ -3,8 +3,9 @@ class Product:
     global_id = 0
 
     def __init__(self, name, description, value):
-        self.id = global_id + 1
-        global_id += 1
+        self.id = Product.global_id + 1
+        Product.global_id += 1
+        self.name = name
         self.description = description
         self.value = value
 
@@ -30,5 +31,5 @@ class Product:
         self.value = value
 
     def __str__(self):
-        return "ID: " + self.id + "\nName: " + self.name + "\nDescription: " \
-            + self.description + "\nValue: " + self.value
+        return "\nID: " + str(self.id) + "\nName: " + self.name + "\nDescription: " \
+            + self.description + "\nValue: " + str(self.value) + "\n"
