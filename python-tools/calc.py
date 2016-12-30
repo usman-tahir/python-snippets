@@ -14,7 +14,13 @@ class Calculator:
     self.current_result = result
   
   def set_current_memory(self, memory):
-    self.current_memory = current_memory
+    self.current_memory = memory
+  
+  def clear_result(self):
+    self.current_result = 0
+  
+  def clear_memory(self):
+    self.current_memory = 0
   
   def __str__(self):
     return "%f" % (self.current_result)
