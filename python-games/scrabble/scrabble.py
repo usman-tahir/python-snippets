@@ -1,8 +1,8 @@
 
 class Scrabble:
-    def __init__(self):
+    def __init__(self, word_file_path):
         # Words from the official Scrabble Dictionary (SOWPODS)
-        self.words = Scrabble.initialize_words(self, "./words.txt")
+        self.words = Scrabble.initialize_words(self, word_file_path)
 
         # Scores for the individual letters used in a word
         self.scores = {
@@ -20,6 +20,7 @@ class Scrabble:
             "w": 4, "x": 8,
             "y": 4, "z": 10
         }
+
     def initialize_words(self, filepath):
         file_opened = open(filepath)
         words = file_opened.readlines()
@@ -35,3 +36,11 @@ class Scrabble:
         for letter in letters:
             score += self.scores[letter.lower()]
         return score
+
+    def compare_words(self, word_one, word_two):
+        score_one = self.score_word(word_one)
+        score_two = self.score_word(word_two)
+
+        if score_one > score_two:
+            return word_one
+        return word_two
