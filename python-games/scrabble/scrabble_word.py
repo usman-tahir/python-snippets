@@ -45,7 +45,7 @@ def score_words(words):
   scored = []
   for w in words:
     scored.append(word.Word(w, scrabble_words.score_word(w)))
-  scored.sort(key = lambda x: x.score, reverse = False)
+  scored.sort(key = lambda x: x.score, reverse = True)
 
   for each in scored:
     result += str(each)
