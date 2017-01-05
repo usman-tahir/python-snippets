@@ -24,10 +24,30 @@ def validate_rack(rack):
         return False
     return True
 
+def generate_word(rack, letter, min_length, max_length):
+    words = []
+    for i in range(min_length, max_length):
+        for j in itertools.product(rack, repeat = i):
+            if j[0].startswith(letter):
+                words.append("".join(j))
+    print(len(words))
+    return words
+
+def create_words(rack):
+    s = scrabble.Scrabble("./words.txt")
+    validated_words = []
+
+    for x in range(len(rack)):
+        generated_words = generate_word(rack, rack[x], 1, 7)
+        for y in generated_words:
+            if y in s.words:
+                validated_words.append(y)
+    return validated_words
+
 def main():
     if validate_rack(sys.argv[-1]):
-        # create_words(sys.argv[-1])
-        pass
+        print(sys.argv[-1])
+        validated_words = create_words(sys.argv[-1])
     else:
         print("Please enter a valid, 7 element rack.")
 
