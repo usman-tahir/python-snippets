@@ -1,55 +1,66 @@
 
 import argparse
 import sys
+import time
 import itertools
 import scrabble
+import word
 
 parser = argparse.ArgumentParser(
-    description = 'Generate scrabble words from a rack'
+  description = 'Generate scrabble words from a rack'
 )
 parser.add_argument(
-    'Scrabble word rack:',
-    type = str,
-    nargs = "+",
-    help = "A word rack consisting of 7 letters (ex: 'ZAEFIEE')"
+  'Scrabble word rack:',
+  type = str,
+  nargs = "+",
+  help = "A word rack consisting of 7 letters (ex: 'ZAEFIEE')"
 )
 
 def validate_rack(rack):
-    elements = list(rack)
-    print(elements)
-    if not all(isinstance(letter, str) for letter in rack):
-        return False
+  elements = list(rack)
+  if not all(isinstance(letter, str) for letter in rack):
+    return False
+  if len(elements) != 7:
+    return False
+  return True
 
-    if len(elements) != 7:
-        return False
-    return True
+def generate_words(rack):
+  timeout = time.time() + 15
+  scrabble_words = scrabble.Scrabble("./words.txt")
+  valid = []
+  for i in range(2, len(rack) + 1):
+    words = itertools.permutations(rack, i)
+    for word in list(words):
+      current_word = "".join(word)
+      if current_word in scrabble_words.words:
+        valid.append(current_word)
+      else:
+        if time.time() > timeout:
+          break
+  return list(set(valid))
 
-def generate_word(rack, letter, min_length, max_length):
-    words = []
-    for i in range(min_length, max_length):
-        for j in itertools.product(rack, repeat = i):
-            if j[0].startswith(letter):
-                words.append("".join(j))
-    print(len(words))
-    return words
+def score_words(words):
+  result = ""
+  scrabble_words = scrabble.Scrabble("./words.txt")
+  scored = []
+  for w in words:
+    scored.append(word.Word(w, scrabble_words.score_word(w)))
+  scored.sort(key = lambda x: x.score, reverse = False)
 
-def create_words(rack):
-    s = scrabble.Scrabble("./words.txt")
-    validated_words = []
+  for each in scored:
+    result += str(each)
+  return result
 
-    for x in range(len(rack)):
-        generated_words = generate_word(rack, rack[x], 1, 7)
-        for y in generated_words:
-            if y in s.words:
-                validated_words.append(y)
-    return validated_words
 
 def main():
-    if validate_rack(sys.argv[-1]):
-        print(sys.argv[-1])
-        validated_words = create_words(sys.argv[-1])
-    else:
-        print("Please enter a valid, 7 element rack.")
+  current_rack = sys.argv[-1]
+  print("Current rack: " + str(current_rack))
+  if (validate_rack(current_rack)):
+    generated_words = generate_words(current_rack)
+    print("Words found: " + str(len(generated_words)))
+    print(score_words(generated_words))
+  else:
+    print("Please enter a valid, 7 element rack.")
 
 if __name__ == "__main__":
-    main()
+  main()
