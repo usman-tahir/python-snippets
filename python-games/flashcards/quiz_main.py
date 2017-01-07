@@ -4,16 +4,32 @@ import flashcards
 import quiz
 import random
 
-def get_quiz_file():
-	quiz_name = input("Enter a name for the quiz: ")
-	user_file = input("Enter the file name (Example: 'problems.txt'): ")
-	if os.path.isfile("./" + str(user_file)):
+def validate_quiz_name():
+	quiz_name = ""
+	flag = len(quiz_name) == 0
+	while flag == True:
+		quiz_name = input("Enter a quiz name: ")
 		if len(quiz_name) > 0:
-			return quiz.Quiz(quiz_name, "./" + str(user_file))
+			flag = False
 		else:
-			print("You entered a blank quiz name.")
-	else:
-		print("Please re-run this script and enter a valid quiz file.")
+			print("Please enter a non-blank quiz name.")
+	return quiz_name
+
+def validate_quiz_file():
+	quiz_file = ""
+	flag = (len(quiz_file) == 0) or not (os.path.isfile(quiz_file))
+	while flag == True:
+		quiz_file = input("Enter the file name (Example: 'problems.txt'): ")
+		if (len(quiz_file) > 0) and (os.path.isfile(quiz_file) == True):
+			flag = False
+		else:
+			print("Please enter a non-blank, valid file name.")
+	return "./" + quiz_file
+
+def get_quiz_file():
+	quiz_name = validate_quiz_name()
+	quiz_file = validate_quiz_file()
+	return [quiz_name, quiz_file]
 	
 
 def start_quiz(quiz):
@@ -38,10 +54,9 @@ def start_quiz(quiz):
 			asked += 1
 	return [correct, asked]
 
-
-
 def main():
-	q = get_quiz_file()
+	quiz_info = get_quiz_file()
+	q = quiz.Quiz(quiz_info[0], quiz_info[1])
 	correct = start_quiz(q)
 	print("\nYou got %s out of %s correct." % (str(correct[0]), str(correct[1])))
 
