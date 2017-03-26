@@ -2,6 +2,8 @@ import sys
 
 from django.conf import settings
 
+from django.core.wsgi import get_wsgi_application
+
 from django.conf.urls import url
 from django.http import HttpResponse
 
@@ -24,6 +26,8 @@ def index(request):
 urlpatterns = (
     url(r'^$', index),
 )
+
+application = get_wsgi_application()
 
 if __name__ == "__main__":
     execute_from_command_line(sys.argv)
