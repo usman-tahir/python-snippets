@@ -7,8 +7,21 @@ def validate_data(data, regex = None):
 		return(str(data) != '')
 
 def confirm_data(original, verification):
-		print(original == verification)
 		return original == verification
+
+def get_data(data_type, needs_confirmation = True):
+		data = ''
+		data_confirmed = False
+
+		data = raw_input(('Please enter a %s: ' % (data_type)))
+
+		if needs_confirmation:
+				data_confirmed = confirm_data(data, raw_input('Please confirm this %s: ' % (data_type)))
+
+				while not data_confirmed:
+						print('Confirmation failed. Please try again.')
+						data_confirmed = confirm_data(data, raw_input('Please confirm this %s: ' % (data_type)))
+		return data
 
 def create_new_account():
 		username = ''
@@ -19,27 +32,13 @@ def create_new_account():
 
 
 		# Ask for a username (TODO: validate on "backend" Database class, regex rules for username)
-		while username == '':
-				print('Select a non-blank unsername: ')
-				username = raw_input()
+		username = get_data('username', False)
 
 		# Ask for a password and verify it (TODO: regex rules for password)
-		while password == '':
-				print('Select a non-blank password: ')
-				password = raw_input()
-
-				while not password_confirmation:
-						print('Please verify this password: ')
-						password_confirmation = confirm_data(password, raw_input())
+		password = get_data('password')
 
 		# Ask for a PIN and verify it (TODO: regex rules for pins)
-		while pin == -1:
-				print('Select a 4-digit PIN: ')
-				pin = int(raw_input())
-
-				while not pin_confirmation:
-						print('Please verify this PIN: ')
-						pin_confirmation = confirm_data(pin, int(raw_input()))
+		pin = get_data('PIN')
 
 		user = User(username, password, pin)
 		return user
