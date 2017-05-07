@@ -9,11 +9,21 @@ def validate_data(data, regex = None):
 def confirm_data(original, verification):
 		return original == verification
 
-def get_data(data_type, needs_confirmation = True):
+def validate_username(username, database):
+		return username in database.get_users()
+
+def get_data(data_type, database, needs_confirmation = True):
 		data = ''
 		data_confirmed = False
 
 		data = raw_input(('Please enter a %s: ' % (data_type)))
+
+		if data_type.lower() == 'username':
+				# Check to see if the username is already taken (TODO: possible 'similar usernames' functionality)
+				username_taken = validate_username(data, database)
+				while username_taken:
+						print('This username has been taken. Please try again.')
+						get_data('username', database, False)
 
 		if needs_confirmation:
 				data_confirmed = confirm_data(data, raw_input('Please confirm this %s: ' % (data_type)))
@@ -23,33 +33,31 @@ def get_data(data_type, needs_confirmation = True):
 						data_confirmed = confirm_data(data, raw_input('Please confirm this %s: ' % (data_type)))
 		return data
 
-def create_new_account():
-		username = ''
-		password = ''
-		password_confirmation = False
-		pin_confirmation = False
-		pin = -1
-
+def create_new_account(database):
 
 		# Ask for a username (TODO: validate on "backend" Database class, regex rules for username)
-		username = get_data('username', False)
+		username = get_data('username', database, False)
 
 		# Ask for a password and verify it (TODO: regex rules for password)
-		password = get_data('password')
+		password = get_data('password', database)
 
 		# Ask for a PIN and verify it (TODO: regex rules for pins)
-		pin = get_data('PIN')
+		pin = get_data('PIN', database)
 
 		user = User(username, password, pin)
 		return user
 
 if __name__ == '__main__':
-		menu = '\n1. Log in\n2. Sign up\n'
+		user_database = Database()
+
+		menu = '\n1. Log in\n2. Sign up\n3. Quit'
 		print('Enter a selection: ' + menu)
 		choice = int(raw_input())
 
 		if choice == 1:
 				pass
+		elif choice == 3:
+				print('Goodbye!')
 		else:
-				user = create_new_account()
-				print('new user created')
+				user = create_new_account(user_database)
+				user_database.add_user(user)
